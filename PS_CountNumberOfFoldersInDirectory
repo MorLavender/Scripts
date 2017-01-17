@@ -1,0 +1,18 @@
+$content = [IO.File]::ReadAllText("C:\numOfVMs.txt")
+DO
+{
+$jobsCounter = $content
+Write-Host "jobsCounter - $jobsCounter, content - $content" 
+$verifyCounter=Get-ChildItem -Directory | Measure-Object | %{$_.Count}
+$runingJobsCounter=$jobsCounter-$verifyCounter
+Write-Host "runingJobsCounter- $runingJobsCounter" 
+Write-Host $verifyCounter " deployment jobs completed - $runingJobsCounter deployment jobs still running"
+Start-Sleep -s 30
+if ($verifyCounter -eq $jobsCounter) {
+    Write-Host "verifyCounter - $verifyCounter,jobsCounter - $jobsCounter"
+    
+    exit 0
+    
+}
+}
+while($runingJobsCounter -ne 0)
