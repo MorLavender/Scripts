@@ -1,0 +1,10 @@
+@echo off
+
+echo Num Of VMs after encoding:
+type C:\numOfVMs.txt 
+
+set /p Var=<C:\numOfVMs.txt
+rem echo %Var%
+set /a "Temp=%Var%-1"
+
+FOR /L %%G IN (1,1,%Var%) DO start C:\Executor%%G.bat
