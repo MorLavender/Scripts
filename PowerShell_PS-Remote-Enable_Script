@@ -1,0 +1,9 @@
+set /a USER_NAME=kuku
+set /a PASSWORD=kuku123
+set /a VM_NAME=myd-vm12345
+powershell Test-Connection -ComputerName %VM_NAME% -Count 3
+if not %ERROR_LEVEL% == 0 echo ERROR: %VM_NAME% IS DOWN & goto end
+%WMIEXECPATH% /node:"%VM_NAME%" /user:%USER_NAME% /password: %PASSWORD% process call create "cmd.exe /c powershell Enable-PSRemoting -force"
+
+set /a SERVICE_IS_RUNNING_COUNT=0
+exit 0 
